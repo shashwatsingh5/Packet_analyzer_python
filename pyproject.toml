@@ -1,0 +1,12 @@
+[project]
+name = "py_packet_analyzer"
+version = "0.1.0"
+description = "Python port of Packet_analyzer C++ DPI engine (offline, dpkt-based)."
+requires-python = ">=3.11"
+dependencies = [
+    "dpkt>=1.9.7"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
