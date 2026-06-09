@@ -4,7 +4,8 @@ version = "0.1.0"
 description = "Python port of Packet_analyzer C++ DPI engine (offline, dpkt-based)."
 requires-python = ">=3.11"
 dependencies = [
-    "dpkt>=1.9.7"
+    "dpkt>=1.9.7",
+    "psutil>=5.9.0"
 ]
 
 [build-system]

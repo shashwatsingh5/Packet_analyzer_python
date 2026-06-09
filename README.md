@@ -17,6 +17,18 @@ pip install -r requirements.txt
 ```bash
 python -m py_packet_analyzer.main test_dpi.pcap
 ```
+
+3. Use multi-worker processing:
+
+```bash
+python -m py_packet_analyzer.main test_dpi.pcap --workers 2
+```
+
+4. Run benchmark measurements:
+
+```bash
+python -m py_packet_analyzer.main test_dpi.pcap --workers 2 --benchmark --bench-runs 3
+```
 # DPI Engine - Deep Packet Inspection System
 
 

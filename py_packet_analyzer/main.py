@@ -26,7 +26,31 @@ def main() -> None:
     parser.add_argument('--rules', help='Rules file (one rule substring per line)')
     parser.add_argument('--max-packets', type=int, help='Limit number of packets to process (for testing)')
     parser.add_argument('--workers', type=int, default=1, help='Number of worker processes to use for sharded processing')
+    parser.add_argument('--benchmark', action='store_true', help='Run benchmark measurements instead of printing every packet')
+    parser.add_argument('--bench-runs', type=int, default=1, help='Number of benchmark runs to average')
     args = parser.parse_args()
+
+    if args.benchmark:
+        from .benchmark import benchmark
+        metrics = benchmark(
+            args.pcap,
+            workers=args.workers,
+            rules_path=args.rules,
+            max_packets=args.max_packets,
+            runs=args.bench_runs,
+        )
+        print('Benchmark results:')
+        print(f"  runs: {metrics['runs']}")
+        print(f"  workers: {metrics['workers']}")
+        print(f"  packets: {metrics['packets']}")
+        print(f"  elapsed_seconds: {metrics['elapsed_seconds']:.6f}")
+        print(f"  throughput_pps: {metrics['throughput_pps']:.2f}")
+        print(f"  cpu_seconds: {metrics['cpu_seconds']:.6f}")
+        print(f"  cpu_percent: {metrics['cpu_percent']:.2f}%")
+        print(f"  memory_rss_bytes: {metrics['memory_rss_bytes']}")
+        print(f"  match_time_seconds: {metrics['match_time_seconds']:.6f}")
+        return
+
     import time
     start = time.perf_counter()
     if args.workers and args.workers > 1:
